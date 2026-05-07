@@ -23,7 +23,25 @@ The application is trying to use too much memory and is being killed by Kubernet
 ### Services
 Services provide a stable endpoint for pods. They are an abstraction used to provide a stable endpoint and load balance traffic across a group of Pods.
 
+### Persistent Volumes
+Instead of simply adding a volume to a deployment, a persistent volume is a cluster-level resource that is created separately from the pod and then attached to the pod. It's similar to a ConfigMap in that way.
 
+PVs can be created statically or dynamically.
+
+Static PVs are created manually by a cluster admin
+Dynamic PVs are created automatically when a pod requests a volume that doesn't exist yet
+Generally speaking, and especially in the cloud-native world, we want to use dynamic PVs. It's less work and more flexible.
+
+### Namespaces
+Namespaces are a way to isolate cluster resources into groups. They're a bit like directories on your computer, but instead of containing files, they contain Kubernetes objects. 
+
+You can only use a name once. It is a unique identifier. That's how kubectl apply knows when it should create a new resource and when it should update an existing one. Namespaces allow us to use the same name for different resources, as long as they're in different namespaces.
+
+### Metrics
+Install the following:
+`minikube addons enable metrics-server`
+
+Then run `kubectl top pod`
 
 ---
 ## Commands
@@ -67,3 +85,22 @@ You would then port forward the service:
 
 Open local cluster to localmachine:
 `minikube tunnel -c`
+
+Get PVC info
+```
+kubectl get pvc
+kubectl get pv
+```
+
+Create namespace
+`kubectl create ns crawler`
+
+Get namespaces
+`kubectl get ns`
+
+Working with name spaces:
+```
+kubectl -n crawler get pods
+kubectl -n crawler get svc
+kubectl -n crawler get configmaps
+```
