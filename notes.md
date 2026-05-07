@@ -20,6 +20,12 @@ The application is misconfigured and can't start properly
 A dependency of the application is misconfigured and the application can't start properly
 The application is trying to use too much memory and is being killed by Kubernetes
 
+### Services
+Services provide a stable endpoint for pods. They are an abstraction used to provide a stable endpoint and load balance traffic across a group of Pods.
+
+
+
+---
 ## Commands
 To create a deployment, this creates a pod with the name built from the docker image
 `kubectl create deployment synergychat-web --image=docker.io/bootdotdev/synergychat-web:latest`
@@ -53,3 +59,11 @@ To get replicatsets:
 
 To apply a static config to the deployment:
 `kubectl apply -f web-deployment.yaml`
+
+To get active services:
+`kubectl get services`
+You would then port forward the service:
+`kubectl port-forward service/web-service 8080:80`
+
+Open local cluster to localmachine:
+`minikube tunnel -c`
